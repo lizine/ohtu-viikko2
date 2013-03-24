@@ -5,15 +5,18 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class Statistics {
+ 
 
     private List<Player> players;
 
-    public Statistics() {
-        PlayerReader reader = new PlayerReader("http://nhlstatistics.herokuapp.com/players.txt");
-        players = reader.getPlayers();       
+   
+    public Statistics (Reader reader){
+       
+         players = reader.getPlayers(); 
     }
-
+    
     public Player search(String name) {
         for (Player player : players) {
             if (player.getName().contains(name)) {
