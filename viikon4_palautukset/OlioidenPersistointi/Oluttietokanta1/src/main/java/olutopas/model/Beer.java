@@ -1,5 +1,6 @@
 package olutopas.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,16 +20,42 @@ public class Beer {
     @ManyToOne
     private Brewery brewery;
     
-     @ManyToMany(mappedBy = "beers", cascade = CascadeType.ALL)
-    private List<Pub> pubs;
+    @ManyToMany(mappedBy = "beers", cascade = CascadeType.ALL)
+    List<Pub> pubs;
+
+     public void setPubs(List<Pub> pubs) {
+        this.pubs = pubs;
+    }
 
     public List<Pub> getPubs() {
         return pubs;
+    }   
+
+    @Override
+    public boolean equals(Object o) {
+        Beer other = (Beer)o;
+        
+        return id == other.getId();
     }
 
-    public void setPubs(List<Pub> pubs) {
-        this.pubs = pubs;
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }       
+    
+    
+
+    public void addToPubs(Pub pub) {
+        if ( pubs==null  ) pubs = new ArrayList<Pub>();
+        pubs.add(pub);
     }
+
+    public void removePub(Pub pub) {
+        pubs.remove(pub);
+    }
+    
     
     
 
